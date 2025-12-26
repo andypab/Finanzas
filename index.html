@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Entregable 1 - Diagnóstico Financiero Familiar</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; background-color: #f4f7f6; margin: 0; padding: 20px; color: #2d3436; }
+        .container { max-width: 1000px; margin: auto; }
+        .header { background: linear-gradient(135deg, #2c3e50, #34495e); color: white; padding: 30px; border-radius: 15px; text-align: center; margin-bottom: 30px; }
+        
+        .summary-banner { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-bottom: 30px; }
+        .stat-card { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); text-align: center; border-bottom: 4px solid #3498db; }
+        .stat-card.income { border-bottom-color: #27ae60; }
+        .stat-card.expense { border-bottom-color: #e74c3c; }
+        .stat-value { font-size: 1.5rem; font-weight: bold; margin-top: 10px; }
+        
+        .card { background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); margin-bottom: 25px; }
+        .perspective-card { border-left: 6px solid #4834d4; }
+        .diagnosis-card { border-left: 6px solid #f1c40f; }
+        
+        h2 { color: #2c3e50; font-size: 1.2rem; border-bottom: 2px solid #eee; padding-bottom: 10px; margin-top: 0; }
+        .analysis-box { background: #f9f9ff; padding: 15px; border-radius: 8px; border: 1px solid #e1e1f1; line-height: 1.6; }
+
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 25px; }
+        .recommendation-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+        .rec-card { padding: 20px; border-radius: 15px; color: white; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        .rec-1 { background: linear-gradient(135deg, #0984e3, #74b9ff); }
+        .rec-2 { background: linear-gradient(135deg, #6c5ce7, #a29bfe); }
+        .rec-3 { background: linear-gradient(135deg, #00b894, #55efc4); }
+
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        td { padding: 10px; border-bottom: 1px solid #f9f9f9; }
+        td:last-child { text-align: right; font-weight: bold; }
+        .chart-container { height: 300px; margin-top: 15px; display: flex; justify-content: center; align-items: center; }
+        canvas { max-height: 100% !important; max-width: 100% !important; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <h1>📉 Entregable 1: Diagnóstico de Finanzas Familiares</h1>
+        <p>Análisis Presupuestal Diciembre 2025</p>
+    </div>
+
+    <div class="summary-banner">
+        <div class="stat-card income">
+            <div>Ingresos Totales</div>
+            <div class="stat-value">$80,455.20</div>
+        </div>
+        <div class="stat-card expense">
+            <div>Gastos Totales</div>
+            <div class="stat-value">$73,124.88</div>
+        </div>
+        <div class="stat-card">
+            <div>Saldo Familiar</div>
+            <div class="stat-value" style="color: #27ae60;">$7,330.32</div>
+        </div>
+    </div>
+
+    <div class="card perspective-card">
+        <h2>💰 Perspectiva de la Situación Actual</h2>
+        <div class="analysis-box">
+            <p>Al analizar nuestras finanzas familiares este mes de diciembre, veo que tenemos un <b>saldo positivo de $7,330.32 MXN</b>. Esto se debe principalmente a los ingresos extras por bonos y aguinaldos ($15,434.70). Sin embargo, me preocupa que estos ingresos variables representen un porcentaje importante de nuestra capacidad de ahorro mensual.</p>
+        </div>
+    </div>
+
+    <div class="card diagnosis-card">
+        <h2>📝 Diagnóstico de las Finanzas Familiares y Personales</h2>
+        <div class="analysis-box">
+            <p>Tras el análisis de diciembre 2025, el diagnóstico arroja una <b>salud financiera estable pero con vulnerabilidad estructural</b>. Se concluye lo siguiente:</p>
+            <ul>
+                <li><b>Dependencia Estacional:</b> La capacidad de ahorro actual depende en gran medida de ingresos variables que no se repiten mensualmente.</li>
+                <li><b>Control de Gastos:</b> Los gastos variables de temporada se mantuvieron controlados ($3,254.00) evitando el sobreendeudamiento.</li>
+                <li><b>Fortaleza:</b> Priorización efectiva de gastos fijos de vivienda y alimentación.</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="grid">
+        <div class="card">
+            <h2>Detalle de Entradas (Diciembre)</h2>
+            <table>
+                <tr><td>Sueldo Mamá (Fijo)</td><td>$60,120.50</td></tr>
+                <tr><td>Aguinaldo / Bonos (Var.)</td><td>$15,434.70</td></tr>
+                <tr><td>Ventas Extra (Var.)</td><td>$4,900.00</td></tr>
+            </table>
+            <div class="chart-container"><canvas id="incomeChart"></canvas></div>
+        </div>
+        <div class="card">
+            <h2>Distribución de Gastos</h2>
+            <table>
+                <tr><td>Vivienda y Servicios</td><td>$32,450.15</td></tr>
+                <tr><td>Alimentación</td><td>$28,180.40</td></tr>
+                <tr><td>Gastos Navidad (Var.)</td><td>$3,254.00</td></tr>
+                <tr><td>Otros Gastos Fijos</td><td>$9,240.33</td></tr>
+            </table>
+            <div class="chart-container"><canvas id="expenseChart"></canvas></div>
+        </div>
+    </div>
+
+    <div class="card">
+        <h2>💡 Mis Recomendaciones para la Familia</h2>
+        <div class="recommendation-grid">
+            <div class="rec-card rec-1">
+                <h3>Crear un fondo de emergencia</h3>
+                <p>Propongo destinar al menos una parte del excedente para construir un fondo ante imprevistos.</p>
+            </div>
+            <div class="rec-card rec-2">
+                <h3>Buscar estabilizar los ingresos</h3>
+                <p>Exploremos formas de hacer los ingresos variables más constantes mes a mes.</p>
+            </div>
+            <div class="rec-card rec-3">
+                <h3>Plan de optimización</h3>
+                <p>Revisar gastos fijos para aumentar el margen de ahorro familiar.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Gráfica de Entradas (Doughnut exacto a la imagen)
+    new Chart(document.getElementById('incomeChart'), {
+        type: 'doughnut',
+        data: {
+            labels: ['Sueldo Fijo', 'Variables'],
+            datasets: [{
+                data: [60120.50, 20334.70],
+                backgroundColor: ['#28a745', '#45cc6a'], // Verdes de la imagen
+                borderWidth: 2
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            cutout: '65%',
+            plugins: { legend: { position: 'bottom' } }
+        }
+    });
+
+    // Gráfica de Gastos (Pie exacto a la imagen)
+    new Chart(document.getElementById('expenseChart'), {
+        type: 'pie',
+        data: {
+            labels: ['Vivienda', 'Alimentación', 'Navidad', 'Otros'],
+            datasets: [{
+                data: [32450.15, 28180.40, 3254.00, 9240.33],
+                backgroundColor: ['#3498db', '#9b59b6', '#e74c3c', '#f1c40f'], // Colores imagen
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: { legend: { position: 'bottom' } }
+        }
+    });
+</script>
+
+</body>
+</html>
