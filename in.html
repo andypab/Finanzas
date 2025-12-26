@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Financiero Trimestral - Análisis Detallado</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; background-color: #f0f4f8; margin: 0; padding: 20px; color: #2d3436; }
+        .container { max-width: 1100px; margin: auto; }
+        
+        .header { background: linear-gradient(135deg, #4834d4, #686de0); color: white; padding: 30px; border-radius: 15px; text-align: center; margin-bottom: 30px; box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+        
+        /* TARJETAS DE IMPACTO */
+        .summary-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin-bottom: 30px; }
+        .summary-card { background: white; padding: 25px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border-top: 5px solid #4834d4; }
+        .summary-card h3 { color: #4834d4; margin: 0 0 15px 0; font-size: 1.2rem; }
+        .summary-card .value { font-size: 2rem; font-weight: bold; margin-bottom: 10px; }
+        .summary-card .desc { font-size: 0.95rem; color: #636e72; line-height: 1.4; }
+        .total-value { color: #00b894; }
+        .high-month { color: #e17055; }
+        .hormiga-value { color: #d63031; }
+        .alert-border { border-top-color: #d63031; }
+
+        /* TABLA DE PATRONES */
+        .table-card { background: white; padding: 25px; border-radius: 12px; margin-bottom: 25px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); border-top: 5px solid #4834d4; }
+        .table-card h2 { color: #4834d4; margin-top: 0; font-size: 1.4rem; border-bottom: 1px solid #eee; padding-bottom: 10px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+        th, td { text-align: left; padding: 12px; border-bottom: 1px solid #f0f2f5; }
+        th { color: #4834d4; background-color: #f8f9fc; }
+
+        /* SECCIONES DE ANÁLISIS */
+        .section-card { background: white; padding: 25px; border-radius: 12px; margin-bottom: 25px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); border-left: 6px solid #4834d4; }
+        .section-card h2 { color: #4834d4; margin-top: 0; display: flex; align-items: center; font-size: 1.4rem; }
+        .icon { margin-right: 10px; }
+        .analysis-box { background: #f9f9ff; padding: 15px; border-radius: 8px; border: 1px solid #e1e1f1; margin-top: 10px; line-height: 1.6; }
+
+        /* GRÁFICOS */
+        .charts-container { display: grid; grid-template-columns: 2fr 1fr; gap: 20px; margin-top: 20px; }
+        .chart-card { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+
+        /* OBJETIVOS */
+        .goals-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-top: 15px; }
+        .goal-card { padding: 20px; border-radius: 15px; color: white; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        .goal-1 { background: linear-gradient(135deg, #0984e3, #74b9ff); }
+        .goal-2 { background: linear-gradient(135deg, #6c5ce7, #a29bfe); }
+        .goal-3 { background: linear-gradient(135deg, #00b894, #55efc4); }
+
+        .learning-footer { background: linear-gradient(135deg, #ff9f43, #feca57); color: white; padding: 25px; border-radius: 12px; margin-top: 30px; }
+        @media (max-width: 768px) { .charts-container { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <h1>📉 Entregable 2: Análisis Financiero Trimestral</h1>
+        <p>Octubre - Diciembre 2025</p>
+    </div>
+
+    <div class="summary-grid">
+        <div class="summary-card">
+            <h3>Total Trimestre</h3>
+            <div class="value total-value">$5,909 MXN</div>
+            <p class="desc">Suma total de gastos detectados en la libreta.</p>
+        </div>
+        <div class="summary-card">
+            <h3>Mes de Mayor Gasto</h3>
+            <div class="value high-month">Diciembre</div>
+            <p class="desc">Debido a un incremento masivo en gastos variables.</p>
+        </div>
+        <div class="summary-card alert-border">
+            <h3>Gasto Hormiga Crítico</h3>
+            <div class="value hormiga-value">Comida Chatarra / Alimentos</div>
+            <p class="desc">Detectado como el patrón de gasto más recurrente en los 3 meses.</p>
+        </div>
+    </div>
+
+    <div class="table-card">
+        <h2>Determinación de Patrones y Tendencias</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Mes</th>
+                    <th>Gastos Fijos</th>
+                    <th>Gastos Variables</th>
+                    <th>Hallazgo Clave</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Octubre</td>
+                    <td>$530</td>
+                    <td>$828</td>
+                    <td>Gasto representativo: Pasaje de ida.</td>
+                </tr>
+                <tr>
+                    <td>Noviembre</td>
+                    <td>$544</td>
+                    <td>$560</td>
+                    <td>Mes con mayor equilibrio financiero.</td>
+                </tr>
+                <tr>
+                    <td>Diciembre</td>
+                    <td>$314</td>
+                    <td>$3,133</td>
+                    <td>Pico de gastos variables (459% de incremento).</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section-card">
+        <h2><span class="icon">👤</span> Mi Análisis Personal</h2>
+        <div class="analysis-box">
+            <p>Al analizar mis gastos durante estos tres meses, me di cuenta de que <b>Diciembre fue el mes con mayor gasto</b> ($3,447), principalmente por el pico en gastos variables que alcanzó los $3,133. En contraste, <b>Noviembre</b> fue el mes con menos gastos ($1,104).</p>
+        </div>
+    </div>
+
+    <div class="section-card" style="border-left-color: #eb4d4b;">
+        <h2 style="color: #eb4d4b;"><span class="icon">⚠️</span> Mis Preocupaciones Financieras</h2>
+        <div class="analysis-box">
+            <p>Me preocupa la <b>volatilidad de mis gastos</b>. En diciembre, los gastos variables representaron casi el <b>91% de mi presupuesto</b>. Esto indica un bajo control sobre gastos no esenciales. Además, los <b>gastos hormiga en comida chatarra</b> son una constante preocupante identificada en los resúmenes de octubre y noviembre.</p>
+        </div>
+    </div>
+
+    <div class="charts-container">
+        <div class="chart-card">
+            <h3>Evolución Trimestral</h3>
+            <canvas id="barChart"></canvas>
+        </div>
+        <div class="chart-card">
+            <h3>Distribución Diciembre</h3>
+            <canvas id="pieChart"></canvas>
+        </div>
+    </div>
+
+    <div class="section-card" style="margin-top: 25px;">
+        <h2><span class="icon">🎯</span> Mis Objetivos Financieros</h2>
+        <div class="goals-grid">
+            <div class="goal-card goal-1">
+                <h3>Establecer un ahorro fijo</h3>
+                <p>Me comprometo a mantener un ahorro constante, evitando desbalances en meses festivos.</p>
+            </div>
+            <div class="goal-card goal-2">
+                <h3>Reducir gastos variables</h3>
+                <p>Limitaré mis gastos en entretenimiento y comida chatarra a un máximo mensual controlado.</p>
+            </div>
+            <div class="goal-card goal-3">
+                <h3>Optimizar transporte</h3>
+                <p>El <b>pasaje de ida</b> es mi gasto fijo más frecuente; buscaré opciones para reducir este costo.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="learning-footer">
+        <h3>💡 Lo que aprendí de este análisis</h3>
+        <p>Este ejercicio me permitió entender mejor mis hábitos de gasto. Descubrí que los gastos variables son los que realmente afectan mi presupuesto. Obtener este diagnóstico me ayuda a planear un 2026 con mayor salud financiera.</p>
+    </div>
+</div>
+
+<script>
+    const ctxBar = document.getElementById('barChart').getContext('2d');
+    new Chart(ctxBar, {
+        type: 'bar',
+        data: {
+            labels: ['Octubre', 'Noviembre', 'Diciembre'],
+            datasets: [
+                { label: 'Fijos', data: [530, 544, 314], backgroundColor: '#4834d4' },
+                { label: 'Variables', data: [828, 560, 3133], backgroundColor: '#686de0' }
+            ]
+        }
+    });
+
+    const ctxPie = document.getElementById('pieChart').getContext('2d');
+    new Chart(ctxPie, {
+        type: 'pie',
+        data: {
+            labels: ['Fijos', 'Variables'],
+            datasets: [{
+                data: [314, 3133],
+                backgroundColor: ['#4834d4', '#eb4d4b']
+            }]
+        }
+    });
+</script>
+
+</body>
+</html>
